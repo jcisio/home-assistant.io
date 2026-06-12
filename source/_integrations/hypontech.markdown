@@ -38,7 +38,7 @@ Username:
   description: "Your Hypontech Cloud account username."
 Password:
   description: "Your Hypontech Cloud account password."
-Manufacturer:
+Manufacturer (dropdown):
   description: "The manufacturer (OEM), Hypontech by default."
 {% endconfiguration_basic %}
 
@@ -46,26 +46,29 @@ Manufacturer:
 
 ### Sensors
 
-The integration provides one **Plant** device for each location (e.g., Balcony, Garden, Home, Office) and one **Overview** (aggregation) device. It is recommended to avoid using the Overview device, as plants can be shared between accounts or temporarily added to your profile, which may lead to inaccurate data aggregation.
+The integration provides one **Plant** device for each location (e.g., Balcony, Garden, Home, Office) and one **Overview** (aggregation) device. It is recommended to disable the Overview device, as plants can be shared between accounts or temporarily added to your profile, which may lead to inaccurate data aggregation.
 
-Plant and Overview has the following sensors:
+Plant and Overview have the following sensors:
 
-- **Total power** (W): Current power production from your solar systems and batteries
+- **Total power** (W): Current power from your solar systems and batteries
 - **Today energy** (kWh): Total energy produced today
 - **Lifetime energy** (kWh): Total energy produced since installation
 
-Plant also have other sensors:
+Plant also has other sensors:
 
 - **PV power** (W): Current power production from solar system
-- **Load power** (W): Current power used by your home, if there is a sensor in your installation
-- **Grid power** (W): Current power load from grid (can be negative), if there is a sensor in your installation
+- **Load power** (W): Current power used by your home, if there is a current clamp in your installation
+- **Grid power** (W): Current power load from grid (can be negative), if there is a current clamp in your installation
 
-If a plant has batteries, it also have other sensors:
+If a plant has batteries, it also has other sensors:
 
 - **Battery power** (W): Current discharging power, if negative, the batteries are charging
 - **Battery state of charge** (percentage): Current state of charge of the batteries
 
-All sensors are updated every minute.
+All sensors are updated every minute. If there is no current clamp and no battery in your application, then Total power = PV power = Load power, and Grid power = 0. If there are batteries, then:
+
+- Total power = PV power + Battery power
+- Home power = Total power + Grid power
 
 ## Data updates
 
